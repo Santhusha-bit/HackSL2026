@@ -1,16 +1,9 @@
 import { readFile } from "fs/promises";
 import path from "path";
+import type { Hackathon } from "./hackathon-types";
 
-export interface Hackathon {
-  id: string;
-  name: string;
-  description: string;
-  date: string;
-  location: string;
-  registrationUrl: string;
-  organizer: string;
-  tags: string[];
-}
+export type { Hackathon } from "./hackathon-types";
+export { getHackathonStatus, formatDate } from "./hackathon-types";
 
 const DATA_PATH = path.join(process.cwd(), "data", "hackathons.json");
 
@@ -25,13 +18,4 @@ export async function getHackathons(): Promise<Hackathon[]> {
   } catch {
     return [];
   }
-}
-
-export function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
 }
